@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ceb">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>D&C 6:11 — Para sa mga YSA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8D49A;
+  --gold-dim: rgba(201,168,76,0.18);
+  --cream: #FAF7F0;
+  --ink: #1A1510;
+  --muted: #7A6E5F;
+  --olive-light: #6B7562;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--cream);min-height:100vh;overflow-x:hidden;}
+
+/* ── TAB NAV ── */
+.tab-bar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:stretch;
+  background:rgba(26,21,16,0.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,168,76,0.15);
+  height:56px;
+}
+.tab-brand{
+  padding:0 1.5rem;display:flex;align-items:center;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:400;
+  color:var(--gold-light);letter-spacing:0.08em;white-space:nowrap;
+  border-right:1px solid rgba(201,168,76,0.12);
+}
+.tab-links{display:flex;flex:1;overflow-x:auto;scrollbar-width:none;}
+.tab-links::-webkit-scrollbar{display:none;}
+.tab-btn{
+  flex-shrink:0;padding:0 1.4rem;
+  font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:400;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);background:transparent;border:none;cursor:pointer;
+  position:relative;transition:color 0.25s;white-space:nowrap;
+}
+.tab-btn::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transition:transform 0.25s;
+}
+.tab-btn.active{color:var(--gold-light);}
+.tab-btn.active::after{transform:scaleX(1);}
+.tab-btn:hover{color:var(--cream);}
+
+/* pulse badge on Scriptural Thought tab */
+.tab-btn.special{color:var(--gold);}
+.tab-btn.special .badge{
+  display:inline-block;margin-left:6px;
+  font-size:0.6rem;font-weight:500;letter-spacing:0.05em;
+  background:var(--gold);color:var(--ink);
+  padding:2px 7px;border-radius:20px;vertical-align:middle;
+  animation:badgepulse 2.5s ease infinite;
+}
+@keyframes badgepulse{0%,100%{opacity:1;}50%{opacity:0.55;}}
+
+/* ── PAGES ── */
+.page{display:none;padding-top:56px;}
+.page.active{display:block;}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:5rem 2rem 3rem;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(201,168,76,0.18) 0%,transparent 65%),
+    radial-gradient(ellipse at 20% 80%,rgba(74,82,64,0.3) 0%,transparent 50%),
+    var(--ink);
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(201,168,76,0.04) 60px,rgba(201,168,76,0.04) 61px),
+    repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(201,168,76,0.04) 60px,rgba(201,168,76,0.04) 61px);
+  pointer-events:none;
+}
+.rays{
+  position:absolute;top:-10%;left:50%;transform:translateX(-50%);
+  width:600px;height:600px;opacity:0.06;pointer-events:none;
+  background:conic-gradient(from 0deg at 50% 0%,
+    transparent 0deg,rgba(201,168,76,1) 2deg,transparent 4deg,transparent 20deg,
+    rgba(201,168,76,1) 22deg,transparent 24deg,transparent 40deg,
+    rgba(201,168,76,1) 42deg,transparent 44deg,transparent 60deg,
+    rgba(201,168,76,1) 62deg,transparent 64deg,transparent 80deg,
+    rgba(201,168,76,1) 82deg,transparent 84deg,transparent 100deg,
+    rgba(201,168,76,1) 102deg,transparent 104deg,transparent 120deg,
+    rgba(201,168,76,1) 122deg,transparent 124deg,transparent 140deg,
+    rgba(201,168,76,1) 142deg,transparent 144deg,transparent 160deg,
+    rgba(201,168,76,1) 162deg,transparent 164deg,transparent 180deg);
+}
+.tag{
+  display:inline-block;font-size:0.68rem;font-weight:500;
+  letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);
+  border:1px solid rgba(201,168,76,0.4);padding:0.35rem 1rem;border-radius:2rem;
+  margin-bottom:2rem;animation:fadeUp 1s ease 0.2s both;
+}
+.reference{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,3vw,1.3rem);
+  font-weight:300;letter-spacing:0.12em;color:var(--gold-light);
+  margin-bottom:1.2rem;animation:fadeUp 1s ease 0.4s both;
+}
+.hero-scripture{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,4.5vw,3.2rem);
+  font-weight:300;font-style:italic;line-height:1.45;max-width:820px;
+  color:var(--cream);margin-bottom:2.5rem;animation:fadeUp 1s ease 0.6s both;
+}
+.hero-scripture em{font-style:normal;color:var(--gold-light);}
+.divider-line{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:0 auto 2rem;animation:fadeUp 1s ease 0.8s both;
+}
+.hero-subtitle{
+  font-size:0.95rem;font-weight:300;color:var(--muted);
+  letter-spacing:0.05em;animation:fadeUp 1s ease 1s both;
+}
+.scroll-cue{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:0.4rem;
+  color:var(--muted);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;
+  animation:fadeUp 1s ease 1.4s both;
+}
+.scroll-cue::after{
+  content:'';display:block;width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--muted),transparent);
+  animation:pulse 2s ease infinite;
+}
+
+/* ── SECTIONS ── */
+.section{max-width:860px;margin:0 auto;padding:5rem 2rem;}
+.section-label{
+  font-size:0.68rem;font-weight:500;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,2.8rem);
+  font-weight:300;line-height:1.25;color:var(--cream);margin-bottom:1.5rem;
+}
+.section-title em{font-style:italic;color:var(--gold-light);}
+.section-body{font-size:1.05rem;font-weight:300;line-height:1.9;color:rgba(250,247,240,0.75);}
+.section-body p+p{margin-top:1.2rem;}
+
+/* ── WORD CARDS ── */
+.word-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:3rem;}
+.word-card{
+  background:rgba(250,247,240,0.04);border:1px solid rgba(201,168,76,0.2);
+  border-radius:12px;padding:1.8rem 1.5rem;transition:border-color 0.3s,background 0.3s;cursor:default;
+}
+.word-card:hover{background:rgba(201,168,76,0.07);border-color:rgba(201,168,76,0.5);}
+.word-card .word{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--gold-light);margin-bottom:0.4rem;}
+.word-card .greek{font-size:0.68rem;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase;margin-bottom:0.9rem;}
+.word-card .meaning{font-size:0.93rem;font-weight:300;line-height:1.75;color:rgba(250,247,240,0.7);}
+
+/* ── QUOTE ── */
+.quote-block{
+  border-left:2px solid var(--gold);padding:1.5rem 2rem;margin:3rem 0;
+  background:rgba(201,168,76,0.06);border-radius:0 12px 12px 0;
+}
+.quote-block blockquote{
+  font-family:'Cormorant Garamond',serif;font-size:1.35rem;
+  font-style:italic;font-weight:300;line-height:1.6;color:var(--cream);
+}
+.quote-block cite{
+  display:block;font-size:0.8rem;font-style:normal;
+  letter-spacing:0.1em;color:var(--gold);margin-top:0.8rem;
+}
+
+/* ── REFLECTION CARDS ── */
+.reflection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:2.5rem;}
+.reflection-card{
+  background:rgba(250,247,240,0.03);border:1px solid rgba(250,247,240,0.1);
+  border-radius:14px;padding:2rem 1.5rem;position:relative;overflow:hidden;
+  transition:transform 0.3s,border-color 0.3s;
+}
+.reflection-card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,0.35);}
+.reflection-card::before{
+  content:attr(data-num);position:absolute;top:-0.5rem;right:1rem;
+  font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;
+  color:rgba(201,168,76,0.08);line-height:1;pointer-events:none;
+}
+.reflection-card h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--gold-light);margin-bottom:0.7rem;}
+.reflection-card p{font-size:0.92rem;font-weight:300;line-height:1.75;color:rgba(250,247,240,0.65);}
+
+/* ── STEPS ── */
+.steps-list{list-style:none;margin-top:2.5rem;display:flex;flex-direction:column;gap:1rem;}
+.step-item{
+  display:flex;align-items:flex-start;gap:1.25rem;
+  background:rgba(250,247,240,0.03);border:1px solid rgba(250,247,240,0.08);
+  border-radius:12px;padding:1.4rem 1.5rem;transition:background 0.3s,border-color 0.3s;
+}
+.step-item:hover{background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.25);}
+.step-num{
+  flex-shrink:0;width:36px;height:36px;border-radius:50%;
+  border:1px solid rgba(201,168,76,0.5);display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);
+}
+.step-text h4{font-size:0.95rem;font-weight:500;color:var(--cream);margin-bottom:0.35rem;}
+.step-text p{font-size:0.88rem;font-weight:300;line-height:1.7;color:rgba(250,247,240,0.6);}
+
+/* ── JOURNAL ── */
+.journal-section{
+  background:rgba(250,247,240,0.03);border:1px solid rgba(201,168,76,0.2);
+  border-radius:16px;padding:2.5rem;margin-top:3rem;
+}
+.journal-section h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--cream);margin-bottom:0.4rem;}
+.journal-section .sub{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;}
+.journal-prompt{
+  background:rgba(250,247,240,0.04);border-radius:10px;padding:1rem 1.2rem;
+  font-size:0.88rem;color:rgba(250,247,240,0.55);font-style:italic;
+  margin-bottom:1rem;line-height:1.6;border-left:2px solid rgba(201,168,76,0.3);
+}
+.journal-textarea{
+  width:100%;background:rgba(250,247,240,0.05);border:1px solid rgba(201,168,76,0.2);
+  border-radius:10px;padding:1rem;font-family:'DM Sans',sans-serif;
+  font-size:0.95rem;font-weight:300;color:var(--cream);resize:vertical;
+  min-height:130px;line-height:1.7;transition:border-color 0.3s;outline:none;
+}
+.journal-textarea:focus{border-color:rgba(201,168,76,0.6);}
+.journal-textarea::placeholder{color:rgba(250,247,240,0.25);}
+.journal-actions{display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:0.4rem;padding:0.6rem 1.2rem;
+  border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:400;
+  letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;border:none;
+}
+.btn-primary{background:var(--gold);color:var(--ink);}
+.btn-primary:hover{background:var(--gold-light);}
+.btn-ghost{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.4);}
+.btn-ghost:hover{background:rgba(201,168,76,0.1);}
+.save-msg{font-size:0.82rem;color:var(--olive-light);align-self:center;display:none;}
+.save-msg.show{display:block;}
+
+/* ── HIGHLIGHT BAND ── */
+.highlight-band{
+  background:rgba(201,168,76,0.06);
+  border-top:1px solid rgba(201,168,76,0.12);border-bottom:1px solid rgba(201,168,76,0.12);
+  padding:3.5rem 2rem;text-align:center;
+}
+.highlight-band .big-word{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,7vw,5rem);
+  font-weight:300;color:var(--gold-light);line-height:1.1;letter-spacing:0.05em;
+}
+.highlight-band .big-sub{font-size:0.85rem;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-top:0.8rem;}
+
+/* ── CLOSING ── */
+.prayer-closer{
+  position:relative;text-align:center;padding:6rem 2rem;
+  background:radial-gradient(ellipse at 50% 100%,rgba(201,168,76,0.15) 0%,transparent 60%),rgba(0,0,0,0.2);
+  overflow:hidden;
+}
+.prayer-closer::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(201,168,76,0.03) 60px,rgba(201,168,76,0.03) 61px);
+}
+.prayer-closer .ornament{font-family:'Cormorant Garamond',serif;font-size:3rem;color:rgba(201,168,76,0.25);line-height:1;margin-bottom:1.5rem;}
+.prayer-closer .closing-text{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3.5vw,2.4rem);
+  font-weight:300;font-style:italic;color:var(--cream);max-width:660px;
+  margin:0 auto 1.5rem;line-height:1.5;
+}
+.prayer-closer .closing-ref{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+
+.section-sep{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.2),transparent);}
+
+footer{text-align:center;padding:2.5rem 1rem;font-size:0.78rem;color:rgba(122,110,95,0.6);border-top:1px solid rgba(250,247,240,0.06);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ════════════════════════════════════════
+   SCRIPTURAL THOUGHT PAGE
+════════════════════════════════════════ */
+.st-page{
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse at 50% -10%,rgba(201,168,76,0.22) 0%,transparent 55%),
+    radial-gradient(ellipse at 85% 90%,rgba(74,82,64,0.25) 0%,transparent 45%),
+    var(--ink);
+  padding:0;
+}
+.st-page::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(201,168,76,0.03) 60px,rgba(201,168,76,0.03) 61px),
+    repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(201,168,76,0.03) 60px,rgba(201,168,76,0.03) 61px);
+  pointer-events:none;z-index:0;
+}
+
+.st-inner{
+  position:relative;z-index:1;
+  max-width:740px;margin:0 auto;
+  padding:4rem 2rem 5rem;
+}
+
+/* Timer */
+.st-timer-wrap{display:flex;align-items:center;justify-content:center;gap:0.8rem;margin-bottom:3rem;}
+.st-timer-ring{position:relative;width:64px;height:64px;flex-shrink:0;}
+.st-timer-ring svg{position:absolute;top:0;left:0;transform:rotate(-90deg);}
+.st-timer-ring circle.bg{fill:none;stroke:rgba(201,168,76,0.15);stroke-width:3;}
+.st-timer-ring circle.prog{
+  fill:none;stroke:var(--gold);stroke-width:3;
+  stroke-dasharray:170;stroke-dashoffset:0;
+  stroke-linecap:round;transition:stroke-dashoffset 1s linear;
+}
+.st-timer-num{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:0.95rem;font-weight:400;color:var(--gold-light);
+}
+.st-timer-label{font-size:0.72rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+.st-timer-controls{display:flex;gap:0.5rem;}
+.st-ctrl-btn{
+  padding:0.4rem 0.9rem;border-radius:6px;font-size:0.75rem;font-weight:400;
+  letter-spacing:0.08em;cursor:pointer;border:1px solid rgba(201,168,76,0.35);
+  background:transparent;color:var(--gold);transition:all 0.2s;
+}
+.st-ctrl-btn:hover{background:rgba(201,168,76,0.1);}
+
+/* Thought header */
+.st-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-size:0.68rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(201,168,76,0.35);
+  padding:0.35rem 1rem;border-radius:2rem;margin-bottom:2rem;
+}
+.st-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5vw,3.2rem);font-weight:300;line-height:1.2;
+  color:var(--cream);margin-bottom:0.6rem;
+}
+.st-title em{font-style:italic;color:var(--gold-light);}
+
+.st-ref{
+  font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;
+  letter-spacing:0.1em;color:rgba(201,168,76,0.65);margin-bottom:3rem;
+}
+
+/* The big scripture pull quote */
+.st-scripture{
+  position:relative;
+  border:1px solid rgba(201,168,76,0.25);
+  border-radius:16px;
+  padding:2.5rem 2.5rem 2rem;
+  background:rgba(201,168,76,0.05);
+  margin-bottom:3rem;
+}
+.st-scripture::before{
+  content:'\201C';
+  position:absolute;top:-1.2rem;left:2rem;
+  font-family:'Cormorant Garamond',serif;font-size:5rem;
+  color:rgba(201,168,76,0.3);line-height:1;
+}
+.st-scripture p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.3rem,3vw,1.9rem);font-style:italic;font-weight:300;
+  line-height:1.6;color:var(--cream);
+}
+.st-scripture p em{font-style:normal;color:var(--gold-light);}
+.st-scripture cite{
+  display:block;font-size:0.78rem;font-style:normal;
+  letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);
+  margin-top:1.2rem;
+}
+
+/* Thought segments */
+.st-segment{margin-bottom:2.5rem;}
+.st-seg-label{
+  font-size:0.65rem;font-weight:500;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:0.9rem;
+  display:flex;align-items:center;gap:0.7rem;
+}
+.st-seg-label::after{content:'';flex:1;height:1px;background:rgba(201,168,76,0.2);}
+.st-seg-text{
+  font-size:1.05rem;font-weight:300;line-height:1.95;color:rgba(250,247,240,0.82);
+}
+.st-seg-text strong{font-weight:500;color:var(--cream);}
+.st-seg-text em{font-style:italic;color:var(--gold-light);}
+
+/* Highlight stat */
+.st-stat{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:rgba(201,168,76,0.15);border-radius:12px;overflow:hidden;
+  margin:2rem 0;
+}
+.st-stat-cell{
+  background:rgba(26,21,16,0.95);padding:1.4rem 1rem;text-align:center;
+}
+.st-stat-cell .num{
+  font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;
+  color:var(--gold-light);line-height:1;
+}
+.st-stat-cell .lbl{font-size:0.72rem;color:var(--muted);letter-spacing:0.1em;margin-top:0.4rem;line-height:1.4;}
+
+/* 3 keys */
+.st-keys{display:flex;flex-direction:column;gap:0.9rem;margin:1.5rem 0;}
+.st-key{
+  display:flex;align-items:flex-start;gap:1rem;
+  background:rgba(250,247,240,0.03);border:1px solid rgba(201,168,76,0.15);
+  border-radius:10px;padding:1.1rem 1.2rem;
+}
+.st-key-icon{
+  flex-shrink:0;width:32px;height:32px;border-radius:50%;
+  border:1px solid rgba(201,168,76,0.4);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:var(--gold);
+}
+.st-key-body h4{font-size:0.9rem;font-weight:500;color:var(--cream);margin-bottom:0.2rem;}
+.st-key-body p{font-size:0.85rem;font-weight:300;line-height:1.65;color:rgba(250,247,240,0.6);}
+
+/* Challenge */
+.st-challenge{
+  background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.3);
+  border-radius:14px;padding:2rem 2rem;margin:2.5rem 0;
+}
+.st-challenge h3{
+  font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;
+  color:var(--cream);margin-bottom:1rem;
+}
+.st-challenge-list{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.st-challenge-list li{
+  display:flex;gap:0.7rem;align-items:flex-start;
+  font-size:0.9rem;font-weight:300;line-height:1.6;color:rgba(250,247,240,0.75);
+}
+.st-challenge-list li::before{
+  content:'✦';color:var(--gold);font-size:0.6rem;margin-top:0.35rem;flex-shrink:0;
+}
+
+/* Closing testimony */
+.st-testimony{
+  text-align:center;padding:2.5rem 1.5rem;
+  border-top:1px solid rgba(201,168,76,0.2);
+  margin-top:3rem;
+}
+.st-testimony p{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,3vw,1.85rem);
+  font-style:italic;font-weight:300;line-height:1.6;color:var(--cream);
+  max-width:580px;margin:0 auto 1rem;
+}
+.st-testimony .amen{
+  font-size:0.78rem;font-weight:500;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--gold);
+}
+
+/* mobile */
+@media(max-width:600px){
+  .tab-brand{display:none;}
+  .section{padding:3.5rem 1.25rem;}
+  .st-inner{padding:3rem 1.25rem 4rem;}
+  .st-scripture{padding:2rem 1.5rem 1.5rem;}
+  .journal-section{padding:1.5rem;}
+  .word-grid{grid-template-columns:1fr;}
+  .st-stat{grid-template-columns:1fr;gap:1px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TAB BAR -->
+<nav class="tab-bar">
+  <div class="tab-brand">D&amp;C 6:11</div>
+  <div class="tab-links">
+    <button class="tab-btn active" onclick="showTab('home')">Balay</button>
+    <button class="tab-btn" onclick="showTab('context')">Kasaysayan</button>
+    <button class="tab-btn" onclick="showTab('breakdown')">Pulong sa Pulong</button>
+    <button class="tab-btn" onclick="showTab('application')">Paggamit</button>
+    <button class="tab-btn" onclick="showTab('journal')">Journal</button>
+    <button class="tab-btn special" onclick="showTab('thought')">
+      Scriptural Thought <span class="badge">2 min</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════ PAGE: HOME ════ -->
+<div id="page-home" class="page active">
+  <section class="hero">
+    <div class="rays"></div>
+    <div class="tag">Doktrina &amp; Mga Pakigsaad · YSA Espirituhanong Hunahuna 2026</div>
+    <p class="reference">Doctrine &amp; Covenants 6 : 11</p>
+    <h1 class="hero-scripture">
+      "And if thou wilt inquire, thou shalt know <em>mysteries</em> which are great and <em>marvelous</em>;
+      therefore thou shalt exercise thy gift, that thou mayest find out <em>mysteries</em>,
+      that thou mayest bring many to the knowledge of the truth."
+    </h1>
+    <div class="divider-line"></div>
+    <p class="hero-subtitle">Para sa mga Batang Hamtong nga Wala Pa Maminyo — karon ug hangtod sa kahangturan</p>
+    <div class="scroll-cue">Tuklasin</div>
+  </section>
+
+  <div class="highlight-band">
+    <p class="big-word reveal">Pangutana.</p>
+    <p class="big-sub reveal">Ang unang kondisyon. Ang unang sugo. Ang unang saad.</p>
+  </div>
+
+  <div class="section-sep"></div>
+  <div class="prayer-closer">
+    <div class="ornament">✦</div>
+    <p class="closing-text reveal">
+      "Busa gamiton nimo ang imong gasa, aron mahibal-an nimo ang mga misteryo, aron madala mo ang daghang mga tawo sa kahibalo sa kamatuoran."
+    </p>
+    <p class="closing-ref reveal">Doktrina &amp; Mga Pakigsaad 6:11 · Para nimo · 2026 ug lapas pa</p>
+  </div>
+  <footer>Giandam uban ang gugma alang sa mga YSA · Ang Simbahan ni Jesukristo sa mga Santos sa Ulahing mga Adlaw</footer>
+</div>
+
+<!-- ════ PAGE: CONTEXT ════ -->
+<div id="page-context" class="page">
+  <div class="section">
+    <p class="section-label reveal">Kasaysayan sa Kasulatan</p>
+    <h2 class="section-title reveal">Ang sandali nga <em>kini gipadayag</em></h2>
+    <div class="section-body reveal">
+      <p>
+        Abril 1829. Si Oliver Cowdery bag-o pa lang miabot sa balay ni Joseph Smith sa Harmony, Pennsylvania. Batan-on siya nga magtutudlo — wala pa singkwenta anyos — mabalaka, dili sigurado sa iyang katuyoan, ug sinesero nga nangita kung si Dios adunay tawag alang kaniya.
+      </p>
+      <p>
+        Ang tubag sa Ginoo pinaagi kang Joseph dili usa ka hugaw nga paghikay. Kini usa ka direkta, personal nga komisyon — usa ka saad nga nalambigit sa pangutana, espirituhanong paningkamot, ug aksyon nga adunay katuyoan. Ang D&amp;C Seksyon 6 usa sa labing intimate nga pagpadayag sa Pagpanumbalik — gisulti ngadto sa usa ka batan-on nga lalaki nga nangahas mangutana.
+      </p>
+      <p>
+        <strong>Ang batan-on nga lalaki mao ikaw.</strong> Ang mga saad sa D&amp;C 6:11 iya sa matag henerasyon nga andam "<em>mang-inquire</em>." — <em>pangutana sa Dios.</em>
+      </p>
+    </div>
+    <div class="quote-block reveal">
+      <blockquote>
+        "Si Oliver Cowdery nakadawat niining pagpadayag human siya 'nangutana' sa Ginoo mahitungod sa iyang papel. Wala maghulat si Dios nga makuha niya ang mga tubag — gisaad niya kini isip tubag sa sinesero nga pangutana."
+      </blockquote>
+      <cite>— Historikal nga Background, D&amp;C Seksyon 6</cite>
+    </div>
+    <div class="section-body reveal">
+      <p>
+        Ikaw mismo, ingon sa usa ka YSA karon sa 2026 — nagpuyo ka sa usa sa labing komplikado nga panahon sa kasaysayan. Ang social media, artificial intelligence, ug cultural pressure nagsige og pangutana sa imong identidad matag adlaw. Apan ang saad sa D&amp;C 6:11 nagpabilin: <em>kung ikaw mangutana sa Dios, siya motubag.</em>
+      </p>
+    </div>
+  </div>
+  <footer>Giandam uban ang gugma alang sa mga YSA · Ang Simbahan ni Jesukristo sa mga Santos sa Ulahing mga Adlaw</footer>
+</div>
+
+<!-- ════ PAGE: BREAKDOWN ════ -->
+<div id="page-breakdown" class="page">
+  <div class="section">
+    <p class="section-label reveal">Pulong sa Pulong</p>
+    <h2 class="section-title reveal"><em>Gisusi</em> ang bersikulo</h2>
+    <div class="section-body reveal">
+      <p>
+        Ang matag pulong sa D&amp;C 6:11 puno og kahulogan. Dili kini ordinaryo nga pinulongan — kini <em>covenant language</em>, pinulongan sa pakigsaad. Atong lingkuran ang matag hugpong sa pulong ug tuklasin kung unsa ang tinuod nga gitanyag sa Dios kanimo.
+      </p>
+    </div>
+    <div class="word-grid">
+      <div class="word-card reveal">
+        <div class="word">"If thou wilt inquire"</div>
+        <div class="greek">Kondisyon · Kagawasan sa Pagpili</div>
+        <div class="meaning">
+          Dili gayud pugson ni Dios ang pagpadayag. Naghulat siya sa atong pagpili nga mangita. Ang "inquire" nagpasabot og pagduol sa Dios nga may tinuod nga pangutana — dili lang pormal nga pag-ampo, kondili pag-ampo nga may konkretong pangutana. Nagsulat sa journal, nag-ayuno, nagpray nga may tibuok kasingkasing.
+        </div>
+      </div>
+      <div class="word-card reveal">
+        <div class="word">"thou shalt know mysteries"</div>
+        <div class="greek">Saad · Pagpadayag</div>
+        <div class="meaning">
+          Ang "mysteries" sa kasulatan dili mga supernatural nga sekreto — kini mga kamatuoran sa kaluwasan nga dili madiskobrehan sa tawo pinaagi sa iyang kaugalingon nga salabutan. Gipadayag lamang kini sa Dios pinaagi sa Espiritu Santo. Ang imong henerasyon nauhaw sa kinahong kamatuoran — ug si Dios nagpasaad niini — direkta kanimo.
+        </div>
+      </div>
+      <div class="word-card reveal">
+        <div class="word">"great and marvelous"</div>
+        <div class="greek">Qualifier · Gidak-on sa Saad</div>
+        <div class="meaning">
+          Wala gikunhoran ni Dios ang iyang mga saad. Dili gamay nga mga insight kini. Ang "marvelous" — usa ka pulong nga gigamit sa tibuok kasulatan sa paghulagway sa mga milagro, ang Pagtonaw, ug mga buhat ni Dios. Gitanyag ka niya og access sa usa ka butang nga labihan ka-ekstraordinaryo.
+        </div>
+      </div>
+      <div class="word-card reveal">
+        <div class="word">"exercise thy gift"</div>
+        <div class="greek">Aksyon · Pag-amping sa Gasa</div>
+        <div class="meaning">
+          Ang tanan kaninyo adunay espirituhanong gasa — usa ka gasa gikan sa Dios nga nag-iisa alang kanimo. Ang "exercise" nagpasabot og paggamit niini, pagbuhat niini, pagpalambo niini. Ang gasa nga wala gamiton — sayang. Gitawag kamo sa Ginoo sa pagtuklas UG pagpalambo kung unsa ang iyang gibutang na sulod kanimo.
+        </div>
+      </div>
+      <div class="word-card reveal">
+        <div class="word">"bring many to the knowledge"</div>
+        <div class="greek">Katuyoan · Misyon</div>
+        <div class="meaning">
+          Mao kini ang pinaka-hinungdan. Ang pagpadayag ug ang mga gasa dili alang lang kanimo — alang sila sa uban. Ang imong pag-inquire, imong espirituhanong pagtubo, imong paggamit sa mga gasa — tanan kini nagpunting sa gawas. Ikaw giandam alang sa pagka-disipulo nga makaapekto sa tinuod nga mga tawo sa imong palibot.
+        </div>
+      </div>
+      <div class="word-card reveal">
+        <div class="word">"of the truth"</div>
+        <div class="greek">Katuyoan · Pundasyon</div>
+        <div class="meaning">
+          Dili ang imong kamatuoran. Dili ang akong kamatuoran. <em>Ang kamatuoran</em> — ang katinuoran ni Jesukristo, ang iyang Pagtonaw, ang iyang buhing ebanghelyo, ang Pagpanumbalik. Sa usa ka henerasyon nga nalunod sa relativism, gisugo ka sa pagpakigbahin sa uban sa kung unsa ang tinuod ug walay katapusan nga tinuod.
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>Giandam uban ang gugma alang sa mga YSA · Ang Simbahan ni Jesukristo sa mga Santos sa Ulahing mga Adlaw</footer>
+</div>
+
+<!-- ════ PAGE: APPLICATION ════ -->
+<div id="page-application" class="page">
+  <div class="section">
+    <p class="section-label reveal">Para sa Imong Henerasyon</p>
+    <h2 class="section-title reveal">Unsa ang kahulogan niini <em>alang kanimo sa 2026</em></h2>
+    <div class="section-body reveal">
+      <p>
+        Nagpuyo ka sa usa sa labing puno-og-impormasyon nga panahon sa kasaysayan sa tawo — apan ang tinuod nga espirituhanong kamatuoran wala pa kahimong layo kaayo para sa daghang imong mga kauban. Ang mga social media algorithm, AI-generated content, ug cultural noise nagpakiglaban sa imong espirituhanong atensyon matag takna.
+      </p>
+      <p>
+        Ang D&amp;C 6:11 dili usa ka lumang kasulatan gikan sa 1829. Kini usa ka buhi nga saad, gi-renew sa matag higayon nga ang usa ka batan-on — sama kanimo — mopili sa pag-inquire sa Dios kaysa sa Google, mag-ayuno kaysa mag-scroll, mo-abli sa mga kasulatan kaysa sa ilang feed. Ang tubag sa Dios nagpabilin: <em>Kung ikaw mag-inquire, ipahayag ko ang mga misteryo nga dako ug katingalahan.</em>
+      </p>
+    </div>
+    <div class="reflection-grid">
+      <div class="reflection-card reveal" data-num="I">
+        <h3>Dili ka bata pa kaayo para makadawat og pagpadayag</h3>
+        <p>Si Oliver batan-on pa sa iyang kawhaan. Si Joseph dose-kwatro anyos. Gipadayag ni Dios ang iyang mga misteryo sa mga sinesero nga nangutana — bisan unsa ang edad, kasinatian, o espirituhanong resume.</p>
+      </div>
+      <div class="reflection-card reveal" data-num="II">
+        <h3>Ang imong gasa gihatag na — dili kinahanglan makuha</h3>
+        <p>Gilista sa D&amp;C 46 ang mga espirituhanong gasa: pagtudlo, pagayo, pagtuo, kaalam, propesiya. Ikaw aduna nay usa. Ang imong misyon mao ang pagtuklas ug pag-amping niini — dili pagpangita pa niini.</p>
+      </div>
+      <div class="reflection-card reveal" data-num="III">
+        <h3>Ang pag-inquire usa ka buhat sa pagtuo</h3>
+        <p>Kung ikaw moadto sa Dios nga adunay tinuod nga pangutana, nagpahayag ka nga nagtuo ka nga motubag siya. Kana nga buhat sa pagduol kaniya mao na mismo ang pagtuo sa aksyon — ug ang pagtuo nagpalihok sa langit.</p>
+      </div>
+      <div class="reflection-card reveal" data-num="IV">
+        <h3>Ang pagdala sa kamatuoran mao ang tawag sa imong henerasyon</h3>
+        <p>Mosulti ang kalibutan sa imong henerasyon nga walay absolute nga kamatuoran. Gipadala ka — sama kang Oliver — aron magsaksi nga adunay kamatuoran, ug sa pagtabang sa uban nga makita kini pinaagi kanimo.</p>
+      </div>
+    </div>
+
+    <div style="height:3rem;"></div>
+    <p class="section-label reveal">Hagit Niining Semanaha</p>
+    <h2 class="section-title reveal">Ibuhat <em>ang D&amp;C 6:11</em> sa praktis</h2>
+    <ul class="steps-list">
+      <li class="step-item reveal">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>Pilia ang usa ka sinesero nga pangutana para dalhan sa Dios</h4>
+          <p>Dili hugaw nga pag-ampo — usa ka espesipiko, matinuoron nga pangutana. Mahitungod sa imong misyon, imong gasa, imong kaugmaon, usa ka relasyon, o usa ka desisyon. Isulat kini sa dili pa moluhod.</p>
+        </div>
+      </li>
+      <li class="step-item reveal">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>Tun-an ang D&amp;C 46:8–33 para mahibal-an ang imong espirituhanong gasa</h4>
+          <p>Basaha ang lista uban sa pag-ampo. Pangutana sa Espiritu kung unsang gasa ang labing mahuluganon alang sa imong natural nga paagi sa pag-alagad sa uban. Mahibulong ka — ang mga gasa kasagaran dili ang atong gihunahuna.</p>
+        </div>
+      </li>
+      <li class="step-item reveal">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>Mag-ayuno usa ka pagkaon nga adunay espesipikong intensyon</h4>
+          <p>Mag-ayuno alang sa kahayag mahitungod sa imong tawag o gasa. Ang pag-inquire mas kusgan kung nagkauban sa sakripisyo. Ang pag-ayuno mao ang pisikal nga pinulongan sa espirituhanong kagutom.</p>
+        </div>
+      </li>
+      <li class="step-item reveal">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <h4>Tino-a ang usa ka tawo nga madala nimo sa kamatuoran</h4>
+          <p>Dili quota sa conversion — usa ka tinuod nga pagkakaibigan. Usa ka tawo kansang kinabuhi mahimo kang espirituhanong presensya. Mao kini kung giunsa ang saad sa Ginoo pinaagi kanimo nga mahimong tinuod sa kinabuhi sa uban.</p>
+        </div>
+      </li>
+      <li class="step-item reveal">
+        <div class="step-num">5</div>
+        <div class="step-text">
+          <h4>Isulat dayon ang bisan unsang inspirasyon nga imong madawat</h4>
+          <p>Ang pagpadayag kasagaran malinawon, dali makalimtan. Sa sandali nga ang hunahuna moabot sa pag-ampo, pag-tuon, o pag-ayuno — isulat kini. Ang imong journal mao ang imong rekord sa pagsulti ni Dios kanimo.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <footer>Giandam uban ang gugma alang sa mga YSA · Ang Simbahan ni Jesukristo sa mga Santos sa Ulahing mga Adlaw</footer>
+</div>
+
+<!-- ════ PAGE: JOURNAL ════ -->
+<div id="page-journal" class="page">
+  <div class="section">
+    <p class="section-label reveal">Personal nga Journal</p>
+    <h2 class="section-title reveal">Ang imong luna para <em>mag-inquire &amp; magsulat</em></h2>
+    <div class="section-body reveal">
+      <p>Isulat dinhi ang imong mga inspirasyon, pangutana, ug mga tubag. Ang imong mga hunahuna gitipigan sa imong browser — pribado kanimo.</p>
+    </div>
+    <div class="journal-section reveal">
+      <h3>Akong Inquiry Journal</h3>
+      <p class="sub">Gitipigan sa lokal sa kining device</p>
+      <div class="journal-prompt">
+        Reflection prompt: "Unsang pangutana ang akong dalabton sa Dios niining semanaha? Unsang gasa ang akong gibati nga gibutang niya sulod kanako? Kinsa ang usa ka tawo nga akong gibati nga akong alagaran?"
+      </div>
+      <textarea class="journal-textarea" id="journalText" placeholder="Sugdi ang pagsulat sa imong mga hunahuna dinhi... Unsa ang gipadayag ni Dios kanimo?" rows="8"></textarea>
+      <div class="journal-actions">
+        <button class="btn btn-primary" onclick="saveJournal()">I-save ang entry</button>
+        <button class="btn btn-ghost" onclick="clearJournal()">I-clear</button>
+        <span class="save-msg" id="saveMsg">Entry na-save na.</span>
+      </div>
+    </div>
+  </div>
+  <footer>Giandam uban ang gugma alang sa mga YSA · Ang Simbahan ni Jesukristo sa mga Santos sa Ulahing mga Adlaw</footer>
+</div>
+
+<!-- ════ PAGE: SCRIPTURAL THOUGHT ════ -->
+<div id="page-thought" class="page">
+  <div class="st-page">
+    <div class="st-inner">
+
+      <!-- Timer -->
+      <div class="st-timer-wrap">
+        <div class="st-timer-ring">
+          <svg viewBox="0 0 64 64" width="64" height="64">
+            <circle class="bg" cx="32" cy="32" r="27"/>
+            <circle class="prog" id="timerCircle" cx="32" cy="32" r="27"/>
+          </svg>
+          <div class="st-timer-num" id="timerNum">2:00</div>
+        </div>
+        <div>
+          <div class="st-timer-label">Espirituhanong Hunahuna</div>
+          <div class="st-timer-controls">
+            <button class="st-ctrl-btn" id="timerBtn" onclick="toggleTimer()">Sugdi</button>
+            <button class="st-ctrl-btn" onclick="resetTimer()">I-reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Header -->
+      <div class="st-badge">✦ 2-Minuto nga Scriptural Thought</div>
+      <h1 class="st-title">Naa Ka<br/><em>Alang sa Usa ka Rason.</em></h1>
+      <p class="st-ref">Doktrina &amp; Mga Pakigsaad 6:11 · Para sa mga YSA · 2026</p>
+
+      <!-- Scripture Pull Quote -->
+      <div class="st-scripture">
+        <p>
+          "And if thou wilt <em>inquire</em>, thou shalt know <em>mysteries</em> which are great and marvelous; therefore thou shalt <em>exercise thy gift</em>, that thou mayest find out mysteries, that thou mayest bring many to the <em>knowledge of the truth.</em>"
+        </p>
+        <cite>— Doctrine &amp; Covenants 6:11</cite>
+      </div>
+
+      <!-- Segment 1: The Setup -->
+      <div class="st-segment">
+        <div class="st-seg-label">Ang Kinahanglan Mahibal-an Nato</div>
+        <div class="st-seg-text">
+          <p>
+            Sa 1829, si <strong>Oliver Cowdery</strong> — usa ka batan-on nga magtutudlo, halos imoha lang ang edad — miabot sa balay ni Joseph Smith nga puno og pangutana. <em>Kinsa ako? Unsa ang akong katuyoan? Aduna ba akoy papel sa plano sa Dios?</em>
+          </p>
+          <p style="margin-top:1rem;">
+            Ug ang tubag ni Dios? Dili siya miingon, <em>"Bantayi lang ug tan-awa."</em> Miingon siya: <strong>"Kung mangutana ka — ipakita ko kanimo ang mga butang nga dako ug katingalahan."</strong>
+          </p>
+          <p style="margin-top:1rem;">
+            <em>Sama gayud ka niya.</em> Batan-on. Nagpangita. Ug ang samang saad — alang kanimo — karon.
+          </p>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="st-stat">
+        <div class="st-stat-cell">
+          <div class="num">3</div>
+          <div class="lbl">Mga aksyon sa<br/>usa ka bersikulo</div>
+        </div>
+        <div class="st-stat-cell">
+          <div class="num">1</div>
+          <div class="lbl">Kondisyon lang:<br/>Pangutana</div>
+        </div>
+        <div class="st-stat-cell">
+          <div class="num">∞</div>
+          <div class="lbl">Mga henerasyon<br/>nga gitawag</div>
+        </div>
+      </div>
+
+      <!-- Segment 2: The 3 Keys -->
+      <div class="st-segment">
+        <div class="st-seg-label">Tulo ka Yawe sa Bersikulo</div>
+        <div class="st-keys">
+          <div class="st-key">
+            <div class="st-key-icon">I</div>
+            <div class="st-key-body">
+              <h4>Pangutana — "If thou wilt inquire"</h4>
+              <p>Dili kita kinahanglan mahibalo sa tanan una mag-ampo. Kinahanglan lang kitang <em>moadto</em> sa Dios nga adunay tinuod nga pangutana. Kana, sa iyang kaugalingon, usa na ka buhat sa pagtuo. Ang pag-inquire mao ang yawe nga nagbukas sa pultahan.</p>
+            </div>
+          </div>
+          <div class="st-key">
+            <div class="st-key-icon">II</div>
+            <div class="st-key-body">
+              <h4>Gamiton ang Gasa — "Exercise thy gift"</h4>
+              <p>Ang tanan kaninyo adunay <em>espirituhanong gasa</em> nga gihatag na ni Dios — dili pa kini kinahanglang makuha. Pagtuon, pag-ayo, pagtuo, kaalam, pagpanginabuhian. Ang imong misyon: <strong>tuklasin kini ug gamiton kini</strong> — alang sa uban, dili lang alang sa imong kaugalingon.</p>
+            </div>
+          </div>
+          <div class="st-key">
+            <div class="st-key-icon">III</div>
+            <div class="st-key-body">
+              <h4>Pagdala sa Kamatuoran — "Bring many to the truth"</h4>
+              <p>Kini ang pinaka-gamhanan nga bahin. Ang imong pagtubo sa espiritu — ang tanan imong pag-ampo, pag-ayuno, pag-inquire — adunay katuyoan: ang pagtabang sa <em>uban</em> nga makaplagan si Kristo. Ikaw wala dinhi para sa imong kaugalingon lang.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Segment 3: The Challenge -->
+      <div class="st-segment">
+        <div class="st-seg-label">Para sa Inyong Henerasyon — 2026</div>
+        <div class="st-seg-text">
+          <p>
+            Nagpuyo kamo sa usa sa labing komplikado nga panahon. Ang <strong>social media</strong> nagpangutana sa imong identidad. Ang <strong>AI</strong> naghatag og dali nga mga tubag sa tanan. Ang <strong>kultura</strong> nagsulti nga walang absolute nga kamatuoran.
+          </p>
+          <p style="margin-top:1rem;">
+            Apan kamo — ang mga YSA sa 2026 — gipadala aron <em>mangutana sa Dios</em> kaysa sa Google. Mag-ayuno kaysa mag-scroll. Moabli sa mga kasulatan kaysa sa feed. Ug kung mao kana ang imong buhaton — <strong>gisaad ni Dios ang mga misteryo nga dako ug katingalahan.</strong>
+          </p>
+        </div>
+      </div>
+
+      <!-- Challenge Box -->
+      <div class="st-challenge">
+        <h3>Usa ka Hagit Para Kanimo Karon ✦</h3>
+        <ul class="st-challenge-list">
+          <li>Pangutana sa Dios og <strong>usa ka espesipikong pangutana</strong> niining semanaha — isulat kini sa dili pa moluhod.</li>
+          <li>Basaha ang <strong>D&amp;C 46:8–33</strong> aron tuklasin kung unsang espirituhanong gasa ang gibutang ni Dios sulod kanimo.</li>
+          <li>Tino-a ang <strong>usa ka tawo</strong> nga madala nimo ngadto sa kamatuoran — dili conversion, kondili tinuod nga pagkakaibigan.</li>
+          <li>Isulat <strong>dayon</strong> ang bisan unsang inspirasyon nga imong madawat — ang imong journal mao ang imong rekord sa pagsulti ni Dios kanimo.</li>
+        </ul>
+      </div>
+
+      <!-- Testimony close -->
+      <div class="st-testimony">
+        <p>
+          "Nagtuo ako nga si Dios namulong pa gihapon sa mga batan-on. Nagtuo ako nga ang imong henerasyon — ang mga YSA sa 2026 — gitawag alang sa usa ka katuyoan nga mas dako kaysa imong naihanduraw. Ug nagtuo ako nga kung ikaw mangutana, <em>motubag siya.</em>"
+        </p>
+        <div class="amen">Sa Ngalan ni Jesukristo, Amen.</div>
+      </div>
+
+    </div><!-- /st-inner -->
+  </div><!-- /st-page -->
+  <footer>Giandam uban ang gugma alang sa mga YSA · Ang Simbahan ni Jesukristo sa mga Santos sa Ulahing mga Adlaw</footer>
+</div>
+
+<script>
+// ── TAB SWITCHING ──
+function showTab(tab) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + tab).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0, 0);
+  triggerReveals();
+}
+
+// ── SCROLL REVEAL ──
+function triggerReveals() {
+  const reveals = document.querySelectorAll('.page.active .reveal:not(.visible)');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => obs.observe(el));
+}
+document.addEventListener('DOMContentLoaded', triggerReveals);
+
+// ── JOURNAL ──
+const journalEl = document.getElementById('journalText');
+const saved = localStorage.getItem('dc611_journal');
+if (saved) journalEl.value = saved;
+
+function saveJournal() {
+  localStorage.setItem('dc611_journal', journalEl.value);
+  const msg = document.getElementById('saveMsg');
+  msg.classList.add('show');
+  setTimeout(() => msg.classList.remove('show'), 2500);
+}
+function clearJournal() {
+  if (confirm('I-clear ang imong journal entry?')) {
+    journalEl.value = '';
+    localStorage.removeItem('dc611_journal');
+  }
+}
+let autoSave;
+journalEl.addEventListener('input', () => {
+  clearTimeout(autoSave);
+  autoSave = setTimeout(() => localStorage.setItem('dc611_journal', journalEl.value), 1200);
+});
+
+// ── TIMER ──
+const TOTAL = 120;
+let remaining = TOTAL;
+let running = false;
+let timerInterval = null;
+const circle = document.getElementById('timerCircle');
+const timerNum = document.getElementById('timerNum');
+const timerBtn = document.getElementById('timerBtn');
+const circumference = 2 * Math.PI * 27;
+
+function updateTimer() {
+  const pct = remaining / TOTAL;
+  circle.style.strokeDashoffset = circumference * (1 - pct);
+  const m = Math.floor(remaining / 60);
+  const s = remaining % 60;
+  timerNum.textContent = m + ':' + String(s).padStart(2, '0');
+}
+
+function toggleTimer() {
+  if (running) {
+    clearInterval(timerInterval);
+    running = false;
+    timerBtn.textContent = 'Ipadayon';
+  } else {
+    if (remaining <= 0) { resetTimer(); return; }
+    running = true;
+    timerBtn.textContent = 'I-pause';
+    timerInterval = setInterval(() => {
+      remaining--;
+      updateTimer();
+      if (remaining <= 0) {
+        clearInterval(timerInterval);
+        running = false;
+        timerBtn.textContent = 'Nahuman';
+        circle.style.stroke = 'var(--olive-light)';
+      }
+    }, 1000);
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  running = false;
+  remaining = TOTAL;
+  circle.style.stroke = 'var(--gold)';
+  circle.style.strokeDashoffset = 0;
+  timerBtn.textContent = 'Sugdi';
+  updateTimer();
+}
+
+updateTimer();
+</script>
+</body>
+</html>
